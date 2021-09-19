@@ -1,4 +1,3 @@
-# pas2js-res-utils
 Pas2JS Resource Utilities
 
 A pas2js unit that treats resource files like regular disk files. 
