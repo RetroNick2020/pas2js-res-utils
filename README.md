@@ -6,7 +6,7 @@ is also included to show one of its many uses.
 Take a look at the following videos
 
 
-[Pas2JS Resource Video (https://youtu.be/C84__bqi4YQ)
+[Pas2JS Resource Video](https://youtu.be/C84__bqi4YQ)
 
 [Pas2JS Tutorials](https://github.com/RetroNick2020/Channel-Code/discussions)
 
