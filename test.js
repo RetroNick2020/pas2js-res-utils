@@ -1819,6 +1819,30 @@ rtl.module("RESread",["System","Web","p2jsres"],function () {
     };
     return Result;
   };
+  this.ResEOF = function (F) {
+    var Result = false;
+    if (F.Position === F.Length) {
+      Result = true}
+     else Result = false;
+    return Result;
+  };
+  this.RESreadLine = function (F) {
+    var Result = "";
+    var LineStr = "";
+    var b1 = 0;
+    LineStr = "";
+    while (!$mod.ResEOF(F)) {
+      b1 = $mod.RESreadByte(F);
+      if (b1 === 10) {
+        Result = LineStr;
+        return Result;
+      } else if (b1 !== 13) {
+        LineStr = LineStr.concat(String.fromCharCode(b1));
+      };
+    };
+    Result = LineStr;
+    return Result;
+  };
   $mod.$init = function () {
   };
 });
@@ -1849,6 +1873,13 @@ rtl.module("bitfonts",["System","RESread","Bits"],function () {
       for (i = 0; i <= 7; i++) {
         if ($impl.CurrentFont[char_index].BitMap[i][j] === 1) $impl.DefPutPixelProc(x + i,y + j);
       };
+    };
+  };
+  this.TextAt = function (x, y, msg) {
+    var i = 0;
+    for (var $l = 0, $end = msg.length - 1; $l <= $end; $l++) {
+      i = $l;
+      $mod.CharAt(x + (i * 8),y,msg.charAt((i + 1) - 1));
     };
   };
   this.InitBitFonts = function () {
@@ -1912,7 +1943,7 @@ rtl.module("bitfonts",["System","RESread","Bits"],function () {
 rtl.module("program",["System","browserconsole","Web","p2jsres","RESread","bitfonts"],function () {
   "use strict";
   var $mod = this;
-  this.FontPixelSize = 2;
+  this.FontPixelSize = 4;
   this.canvas = null;
   this.ctx = null;
   this.InitCanvas = function () {
@@ -1921,27 +1952,27 @@ rtl.module("program",["System","browserconsole","Web","p2jsres","RESread","bitfo
     $mod.ctx.fillStyle = "green";
     $mod.ctx.fillRect(0,0,800,600);
   };
-  this.DisplayAllChars = function () {
-    var i = 0;
-    var j = 0;
-    var c = 0;
-    c = 0;
+  this.DisplayTextFile = function () {
+    var F = pas.RESread.FileRes.$new();
+    var LineStr = "";
+    var y = 0;
+    y = 10;
+    pas.RESread.RESAssignFile(F,"text");
     $mod.ctx.fillStyle = "white";
-    for (j = 1; j <= 16; j++) {
-      for (i = 1; i <= 16; i++) {
-        pas.bitfonts.CharAt(i * 10,j * 10,String.fromCharCode(c));
-        c += 1;
-      };
+    while (!pas.RESread.ResEOF(F)) {
+      LineStr = pas.RESread.RESreadLine(F);
+      pas.bitfonts.TextAt(8,y,LineStr);
+      y += 10;
     };
   };
   this.BitFontPutPixel = function (x, y) {
-    $mod.ctx.fillRect(x * 2,y * 2,2,2);
+    $mod.ctx.fillRect(x * 4,y * 4,4,4);
   };
   $mod.$main = function () {
     pas.p2jsres.SetResourceSource(pas.p2jsres.TResourceSource.rsHTML);
     $mod.InitCanvas();
     pas.bitfonts.InitBitFonts();
     pas.bitfonts.SetBitFontPixelProc($mod.BitFontPutPixel);
-    $mod.DisplayAllChars();
+    $mod.DisplayTextFile();
   };
 });

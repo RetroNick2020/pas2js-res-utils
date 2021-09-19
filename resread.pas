@@ -1,6 +1,6 @@
 (*
-// pas2js Resource Utilities (RESUtils) example
-// see video for additional info
+// pas2js Resource Utilities (RESUtils) 
+// see video for additional info https://youtu.be/C84__bqi4YQ
 //
 // Please visit and subscribe to RetroNick's youtube channel and follow on github
 // With more new subscribers youtube's algorithm will promote more content like this
@@ -37,11 +37,6 @@ function RESreadLine(var F : FileRes) : string;
 
 Implementation
 
-//var
-// ResStrBuf : String;
-// ResLength : LongInt;
- //ResInfo  : TResourceInfo;
- //ResPosCounter : LongInt;
 
 Procedure RESAssignFile(var F : FileRes; resID : string);
 var

@@ -1,6 +1,16 @@
-// RESUtils example
-// see video for additional info
-
+(*
+// pas2js Resource Utilities (RESUtils) example
+// see video for additional info https://youtu.be/C84__bqi4YQ
+//
+// Please visit and subscribe to RetroNick's youtube channel and follow on github
+// With more new subscribers youtube's algorithm will promote more content like this
+//
+// my github 
+// https://github.com/RetroNick2020
+// 
+// my youtube channel
+// https://www.youtube.com/channel/UCLak9dN2fgKU9keY2XEBRFQ
+*)
 Program test;
   uses browserconsole,Web,p2jsres,RESread,bitfonts;
 
@@ -8,7 +18,7 @@ Program test;
 {$R text.txt}
 
 Const
- FontPixelSize = 2;
+ FontPixelSize = 4;
 
 var
  canvas : TJSHTMLCanvasElement;
@@ -77,6 +87,6 @@ begin
   InitBitFonts;
   SetBitFontPixelProc(@BitFontPutPixel);
   //DisplayFonts;
-  //DisplayTextFile;
-  DisplayAllChars;
+  DisplayTextFile;
+  //DisplayAllChars;
 end.
